@@ -117,5 +117,5 @@ def fun3(url3):
 
             if (i>0) : #use to start from middle
                 fun2("http://www.carfolio.com/specifications/"+ln['href'])
-#fun3("http://www.carfolio.com/specifications")
-fun2("http://www.carfolio.com/specifications/models/?man=513")
+fun3("http://www.carfolio.com/specifications")
+#fun2("http://www.carfolio.com/specifications/models/?man=513")
