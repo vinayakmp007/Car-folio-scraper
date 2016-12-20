@@ -25,7 +25,8 @@ def imagefun(url,modname,manname,year):
 
 
 def fun(url,modname,manname,year):
-    val = {1:'mm',2:'inches',3:""}
+    val = {1:'1',2:'2',3:"3"}
+    valdim={1:"mm",2:"inch",3:"null"}
     print modname,manname,year
     response =requests.get(url)
     html = response.content
@@ -46,14 +47,30 @@ def fun(url,modname,manname,year):
     cel=SubElement(dat,"val",value="1")
     cel.text=year
     for row in table.findAll('tr'):
-        for head in row.findAll('th'):
-            dat= SubElement(root,"dat",name= head.text.encode('utf-8'))
+       c=row.get('class')
 
-            i=1
-            for cell in row.findAll('td'):
-                cel=SubElement(dat,"val",value=val[i])
-                cel.text=cell.text.encode('utf-8')
-                i=i+1
+       if c is not None and 'dimhead' in c:
+           print ''
+       elif c is not None and 'dimrow' in c:
+           for head in row.findAll('th'):
+                dat= SubElement(root,"dat",name= head.text.encode('utf-8'))
+
+                i=1
+                for cell in row.findAll('td'):
+                    cel=SubElement(dat,"val",value=valdim[i])
+                    cel.text=cell.text.encode('utf-8')
+                    i=i+1
+
+       else:
+
+           for head in row.findAll('th'):
+                dat= SubElement(root,"dat",name= head.text.encode('utf-8'))
+
+                i=1
+                for cell in row.findAll('td'):
+                    cel=SubElement(dat,"val",value=val[i])
+                    cel.text=cell.text.encode('utf-8')
+                    i=i+1
 
     tree =ElementTree(root)
 
